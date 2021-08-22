@@ -60,7 +60,7 @@ class ShopComponent extends Component
 
           $categories = Category::all();
 
-        //   dd( $categories);
+          // dd( $products);
 
 
         return view('livewire.shop-component',['products' => $products,'categories' => $categories])->layout('layouts.base');
