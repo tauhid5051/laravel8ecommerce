@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Category;
 use Livewire\Component;
+use illuminate\Support\Str;
 
 class AdminAddCategoryComponent extends Component
 {
@@ -11,7 +13,14 @@ class AdminAddCategoryComponent extends Component
     public function generateslug()
     {
         $this->slug = Str::slug($this->name);
-
+    }
+    public function storeCategory()
+    {
+        $catetory = new Category();
+        $catetory->name = $this->name;
+        $catetory->slug = $this->slug;
+        $catetory->save();
+        session()->flash('message','Category has been created successfully');
     }
     public function render()
     {
