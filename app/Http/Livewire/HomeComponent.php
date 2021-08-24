@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\HomeSlider;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -11,7 +12,7 @@ class HomeComponent extends Component
     {
         // dd(session()->all());
 
-
-        return view('livewire.home-component')->layout('layouts.base');
+$sliders = HomeSlider::where('status',1)->get();
+        return view('livewire.home-component',['sliders'=>$sliders])->layout('layouts.base');
     }
 }

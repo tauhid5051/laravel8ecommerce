@@ -12,6 +12,7 @@ class AdminEditCategoryComponent extends Component
     public $category_id;
     public $name;
     public $slug;
+
     public function mount($category_slug){
         $this->category_slug = $category_slug;
         $category = Category::where('slug',$category_slug)->first();

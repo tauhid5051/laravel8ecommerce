@@ -48,7 +48,7 @@ class AdminAddProductComponent extends Component
         $product->featured = $this->featured;
         $product->quantity = $this->quantity;
         $product->category_id = $this->category_id;
-        $imageName = Carbon::now()->timestamp. '_' .$this->image->extension();
+        $imageName = Carbon::now()->timestamp. '.' .$this->image->extension();
         $this->image->storeAs('products',$imageName);
         $product->image = $imageName;
         $product->save();
