@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @forelse ( $categories as $category )
                                 <tr>
                                     <td>{{$category->id}}</td>
                                     <td>{{$category->name}}</td>
@@ -50,7 +50,13 @@
                                     </td>
                                 </tr>
 
-                                @endforeach
+                                @empty
+                                <tr >
+                                    <th colspan="4" class="text-center"> <h3>No items found</h3></th>
+                                </tr>
+
+                                @endforelse
+
 
                             </tbody>
                         </table>
