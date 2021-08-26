@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HomeSlider extends Model
+class HomeCategory extends Model
 {
     use HasFactory;
-    protected $table = "home_sliders";
+
+    protected $table ="home_categories";
 }

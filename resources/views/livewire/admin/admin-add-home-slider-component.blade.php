@@ -12,39 +12,30 @@
                                 <a href="{{route('admin.homeslider')}}" class="btn btn-success pull-right">All Slides</a>
                             </div>
                         </div>
-
                     </div>
                     <div class="panel-body">
                         @if (Session::has('message'))
-
                         <div class="alert alert-success" role="alert">{{Session::get("message")}}</div>
-
                         @endif
                         <form action="" class="form-horizontal" enctype="multipart/form-data" wire:submit.prevent="addSlide">
-
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Title</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Title" class="form-control input-md" wire:model="title">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Subtitle</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Subtitle" class="form-control input-md" wire:model="subtitle">
                                 </div>
                             </div>
-
-
-
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Price</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Price" class="form-control input-md" wire:model="price">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Link</label>
                                 <div class="col-md-4">
@@ -61,7 +52,6 @@
                                    @endif
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Status</label>
                                 <div class="col-md-4">
@@ -71,20 +61,16 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
-
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
