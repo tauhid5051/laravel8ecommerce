@@ -14,7 +14,7 @@ class AdminEditProductComponent extends Component
     use WithFileUploads;
     public $name;
     public $slug;
-    public $sort_description;
+    public $short_description;
     public $description;
     public $regular_price;
     public $sale_price;
@@ -32,7 +32,7 @@ class AdminEditProductComponent extends Component
         $product = Product::where('slug', $product_slug)->first();
         $this->name = $product->name;
         $this->slug = $product->slug;
-        $this->sort_description = $product->sort_description;
+        $this->short_description = $product->short_description;
         $this->description = $product->description;
         $this->regular_price = $product->regular_price;
         $this->sale_price = $product->sale_price;
@@ -48,13 +48,41 @@ class AdminEditProductComponent extends Component
     {
         $this->slug = Str::slug($this->name);
     }
+    public function updated($fields){
+        $this->validateOnly($fields,[
+            'name' => 'required',
+           'slug' => 'required',
+           'short_description' => 'required',
+           'description' => 'required',
+           'regular_price' => 'required|numeric',
+           'sale_price' => 'numeric',
+           'SKU' => 'required',
+           'category_id' => 'required',
+           'stock_status' => 'required',
+           'quantity' => 'required|numeric',
+           'newImage' => 'mimes:jpeg,png,jpg',
+        ]);
+    }
     public function updateProduct()
     {
+        $this->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'numeric',
+            'SKU' => 'required',
+            'category_id' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            // 'newImage' => 'mimes:jpeg,png,jpg',
+         ]);
 
         $product =  Product::find($this->product_id);
         $product->name = $this->name;
         $product->slug = $this->slug;
-        $product->sort_description = $this->sort_description;
+        $product->short_description = $this->short_description;
         $product->description = $this->description;
         $product->regular_price = $this->regular_price;
         $product->sale_price = $this->sale_price;

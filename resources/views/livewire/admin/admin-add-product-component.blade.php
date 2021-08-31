@@ -26,6 +26,9 @@
                                 <label for="" class="col-md-4 control-label">Product Name</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Product Name" class="form-control input-md" wire:model="name" wire:keyup="generateSlug">
+                                    @error('name')
+                                        <p class="text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -33,6 +36,9 @@
                                 <label for="" class="col-md-4 control-label">Product Slug</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Product Slug" class="form-control input-md" wire:model="slug">
+                                    @error('slug')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -42,6 +48,9 @@
                                 <label for="" class="col-md-4 control-label">Regular Price</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Regular Price" class="form-control input-md" wire:model="regular_price">
+                                    @error('regular_price')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 </div>
                             </div>
 
@@ -49,6 +58,9 @@
                                 <label for="" class="col-md-4 control-label">Sale Price</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Sale Price" class="form-control input-md" wire:model="sale_price">
+                                    @error('sale_price')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 </div>
                             </div>
 
@@ -56,6 +68,9 @@
                                 <label for="" class="col-md-4 control-label">SKU</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="SKU" class="form-control input-md" wire:model="SKU">
+                                    @error('SKU')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 </div>
                             </div>
 
@@ -66,6 +81,7 @@
                                         <option value="instock">InStock</option>
                                         <option value="outofstock">Out of Stock</option>
                                     </select>
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -82,6 +98,9 @@
                                 <label for="" class="col-md-4 control-label">Quantity</label>
                                 <div class="col-md-4">
                                     <input type="text" name="" id="" placeholder="Quantity" class="form-control input-md" wire:model="quantity">
+                                    @error('quantity')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 </div>
                             </div>
 
@@ -89,6 +108,9 @@
                                 <label for="" class="col-md-4 control-label">Product Image</label>
                                 <div class="col-md-4">
                                    <input type="file" name="" id="" class="input-file" wire:model ="image">
+                                   @error('image')
+                                   <p class="text-danger">{{$message}}</p>
+                               @enderror
                                    @if ($image)
                                    <img src="{{$image->temporaryUrl()}}" width="120" alt="">
 
@@ -113,15 +135,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Short Description</label>
-                                <div class="col-md-4">
-                                    <textarea name="" id="" cols="5" rows="5" class="form-control" placeholder="Short Description" wire:model = "sort_description"></textarea>
+                                <div class="col-md-4" wire:ignore>
+                                    <textarea name="" id="short_description" cols="5" rows="5" class="form-control" placeholder="Short Description" wire:model = "short_description"></textarea>
+                                    @error('short_description')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Description</label>
-                                <div class="col-md-4">
-                                    <textarea name="" id="" cols="30" rows="10" class="form-control"  placeholder="Description" wire:model="description"></textarea>
+                                <div class="col-md-4" wire:ignore>
+                                    <textarea name="" id="description" cols="30" rows="10" class="form-control"  placeholder="Description" wire:model="description"></textarea>
+                                    @error('description')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 </div>
                             </div>
 
@@ -141,3 +169,34 @@
 
     </div>
 </div>
+
+@push('scripts')
+<script>
+    $(function(){
+
+        tinymce.init({
+            selector: "#short_description",
+            setup:function(editor){
+                editor.on('change',function(e){
+                    tinyMCE.triggerSave();
+                    var sd_data = $('#short_description').val();
+                    @this.set('short_description',sd_data);
+                });
+            }
+        });
+
+        tinymce.init({
+            selector: "#description",
+            setup:function(editor){
+                editor.on('change',function(e){
+                    tinyMCE.triggerSave();
+                    var d_data = $('#description').val();
+                    @this.set('description',d_data);
+                });
+            }
+        });
+
+    });
+</script>
+
+@endpush

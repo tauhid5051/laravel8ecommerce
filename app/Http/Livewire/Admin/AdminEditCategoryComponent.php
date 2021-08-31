@@ -25,8 +25,19 @@ class AdminEditCategoryComponent extends Component
     {
         $this->slug = Str::slug($this->name);
     }
+    public function updated($fields){
+        $this->validateOnly($fields,[
+            'name' => 'required',
+            'slug' => 'required|unique:categories'
+        ]);
+
+    }
     public function updateCategory()
     {
+        $this->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:categories'
+        ]);
         $catetory = Category::find($this->category_id);
         $catetory->name = $this->name;
         $catetory->slug = $this->slug;

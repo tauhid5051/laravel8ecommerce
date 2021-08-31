@@ -9,7 +9,8 @@
                                 Edit Product
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.products')}}" class="btn btn-success pull-right">All Products</a>
+                                <a href="{{ route('admin.products') }}" class="btn btn-success pull-right">All
+                                    Products</a>
                             </div>
                         </div>
 
@@ -17,22 +18,31 @@
                     <div class="panel-body">
                         @if (Session::has('message'))
 
-                        <div class="alert alert-success" role="alert">{{Session::get("message")}}</div>
+                            <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
 
                         @endif
-                        <form action="" class="form-horizontal" enctype="multipart/form-data" wire:submit.prevent="updateProduct">
+                        <form action="" class="form-horizontal" enctype="multipart/form-data"
+                            wire:submit.prevent="updateProduct">
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Product Name</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="" id="" placeholder="Product Name" class="form-control input-md" wire:model="name" wire:keyup="generateSlug">
+                                    <input type="text" name="" id="" placeholder="Product Name"
+                                        class="form-control input-md" wire:model="name" wire:keyup="generateSlug">
+                                    @error('name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Product Slug</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="" id="" placeholder="Product Slug" class="form-control input-md" wire:model="slug">
+                                    <input type="text" name="" id="" placeholder="Product Slug"
+                                        class="form-control input-md" wire:model="slug">
+                                    @error('slug')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -41,21 +51,33 @@
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Regular Price</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="" id="" placeholder="Regular Price" class="form-control input-md" wire:model="regular_price">
+                                    <input type="text" name="" id="" placeholder="Regular Price"
+                                        class="form-control input-md" wire:model="regular_price">
+                                    @error('regular_price')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Sale Price</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="" id="" placeholder="Sale Price" class="form-control input-md" wire:model="sale_price">
+                                    <input type="text" name="" id="" placeholder="Sale Price"
+                                        class="form-control input-md" wire:model="sale_price">
+                                    @error('sale_price')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">SKU</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="" id="" placeholder="SKU" class="form-control input-md" wire:model="SKU">
+                                    <input type="text" name="" id="" placeholder="SKU" class="form-control input-md"
+                                        wire:model="SKU">
+                                    @error('SKU')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -66,6 +88,9 @@
                                         <option value="instock">InStock</option>
                                         <option value="outofstock">Out of Stock</option>
                                     </select>
+                                    @error('stock_status')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
@@ -75,26 +100,37 @@
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
+                                    @error('featured')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Quantity</label>
                                 <div class="col-md-4">
-                                    <input type="text" name="" id="" placeholder="Quantity" class="form-control input-md" wire:model="quantity">
+                                    <input type="text" name="" id="" placeholder="Quantity"
+                                        class="form-control input-md" wire:model="quantity">
+                                    @error('quantity')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Product Image</label>
                                 <div class="col-md-4">
-                                   <input type="file" name="" id="" class="input-file" wire:model ="newImage">
-                                   @if ($newImage)
-                                   <img src="{{$newImage->temporaryUrl()}}" width="120" alt="">
-                                   @else
-                                   <img src="{{asset('assets/images/products')}}/{{$image}}" width="120" alt="">
+                                    <input type="file" name="" id="" class="input-file" wire:model="newImage">
+                                    @if ($newImage)
+                                        <img src="{{ $newImage->temporaryUrl() }}" width="120" alt="">
+                                    @else
+                                        <img src="{{ asset('assets/images/products') }}/{{ $image }}"
+                                            width="120" alt="">
 
-                                   @endif
+                                    @endif
+                                    @error('newImage')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -104,26 +140,39 @@
                                     <select name="" id="" class="form-control" wire:model="category_id">
                                         <option value="">Select Category</option>
 
-                                       @forelse ($categories as $category)
-                                           <option value="{{$category->id}}">{{$category->name}}</option>
-                                       @empty
-                                       <option value="">No items found</option>
+                                        @forelse ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @empty
+                                            <option value="">No items found</option>
 
-                                       @endforelse
+                                        @endforelse
                                     </select>
+                                    @error('category_id')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="" class="col-md-4 control-label">Short Description</label>
-                                <div class="col-md-4">
-                                    <textarea name="" id="" cols="5" rows="5" class="form-control" placeholder="Short Description" wire:model = "sort_description"></textarea>
+                                <label for="short_description" class="col-md-4 control-label">Short Description</label>
+                                <div class="col-md-4" wire:ignore>
+                                    <textarea name="short_description" id="short_description" cols="5" rows="5"
+                                        class="form-control" placeholder="Short Description"
+                                        wire:model="short_description"></textarea>
+                                    @error('short_description')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="" class="col-md-4 control-label">Description</label>
-                                <div class="col-md-4">
-                                    <textarea name="" id="" cols="30" rows="10" class="form-control"  placeholder="Description" wire:model="description"></textarea>
+                                <label for="description" class="col-md-4 control-label">Description</label>
+                                <div class="col-md-4" wire:ignore>
+                                    <textarea name="description" id="description" cols="30" rows="10"
+                                        class="form-control" placeholder="Description"
+                                        wire:model="description"></textarea>
+                                    @error('description')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -143,3 +192,43 @@
 
     </div>
 </div>
+
+@push('scripts')
+    <script>
+
+
+        $(document).ready(function() {
+            console.log("ready2st!");
+        });
+
+
+        $(function() {
+
+            console.log("ready!");
+
+            tinymce.init({
+                selector: "#short_description",
+                setup: function(editor) {
+                    editor.on('change', function(e) {
+                        tinyMCE.triggerSave();
+                        var sd_data = $('#short_description').val();
+                        @this.set('short_description', sd_data);
+                    });
+                }
+            });
+
+            tinymce.init({
+                selector: "#description",
+                setup: function(editor) {
+                    editor.on('change', function(e) {
+                        tinyMCE.triggerSave();
+                        var d_data = $('#description').val();
+                        @this.set('description', d_data);
+                    });
+                }
+            });
+
+        });
+    </script>
+
+@endpush

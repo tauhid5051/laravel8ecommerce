@@ -14,7 +14,7 @@ class AdminAddProductComponent extends Component
     use WithFileUploads;
     public $name;
     public $slug;
-    public $sort_description;
+    public $short_description;
     public $description;
     public $regular_price;
     public $sale_price;
@@ -33,13 +33,39 @@ class AdminAddProductComponent extends Component
     {
         $this->slug = Str::slug($this->name,'-');
     }
+    public function updated($fields){
+        $this->validateOnly($fields,[
+            'name' => 'required',
+           'slug' => 'required|unique:products',
+           'short_description' => 'required',
+           'description' => 'required',
+           'regular_price' => 'required|numeric',
+           'sale_price' => 'numeric',
+           'SKU' => 'required',
+           'stock_status' => 'required',
+           'quantity' => 'required|numeric',
+           'image' => 'required|mimes:jpeg,png,jpg',
+        ]);
+    }
     public function addProduct()
     {
+        $this->validate([
+           'name' => 'required',
+           'slug' => 'required|unique:products',
+           'short_description' => 'required',
+           'description' => 'required',
+           'regular_price' => 'required|numeric',
+           'sale_price' => 'numeric',
+           'SKU' => 'required',
+           'stock_status' => 'required',
+           'quantity' => 'required|numeric',
+           'image' => 'required|mimes:jpeg,png,jpg',
+        ]);
 
         $product = new Product();
         $product->name = $this->name;
         $product->slug = $this->slug;
-        $product->sort_description = $this->sort_description;
+        $product->short_description = $this->short_description;
         $product->description = $this->description;
         $product->regular_price = $this->regular_price;
         $product->sale_price = $this->sale_price;
