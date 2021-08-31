@@ -4,26 +4,44 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use App\Models\Sale;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
-use Cart;
+
 
 class DetailsComponent extends Component
 {
+
+
+    public $slug;
+    public $qty;
+
+    public function mount($slug)
+    {
+        $this->slug = $slug;
+        $this->qty = 1;
+    }
+
+    public function increaseQuantity(){
+        $this->qty++;
+    }
+    public function decreaseQuantity(){
+        if ( $this->qty > 1) {
+            $this->qty--;
+        }
+
+    }
+
+
+
     public function store($productId,$productName,$product_price)
     {
-        Cart::add($productId,$productName,1,$product_price )->associate('App\Models\Product');
+
+       Cart::instance('cart')->add($productId,$productName,$this->qty,$product_price )->associate('App\Models\Product');
         session()->flash('success_message','Item added in Cart');
         return redirect()->route('product.cart');
     }
 
 
-
-    public $slug;
-
-    public function mount($slug)
-    {
-        $this->slug = $slug;
-    }
 
     public function render()
     {
